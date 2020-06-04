@@ -1,0 +1,18 @@
+create database interfacerobot;
+
+use interfacerobot;
+
+ create table account(
+ id char(6) primary key,
+ name varchar(20) not null,
+ pass varchar(20) not null,
+ mail varchar(20) not null,
+ botname varchar(20) not null);
+
+
+
+create table remind (
+remindid int primary key auto_increment,
+userid char(6) not null,
+remind varchar(255) not null,
+category varchar(20) not null);
