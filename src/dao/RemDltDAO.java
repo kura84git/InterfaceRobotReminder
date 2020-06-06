@@ -12,7 +12,7 @@ public class RemDltDAO {
 	private final String DB_USER = "root";
 	private final String DB_PASS = "root";
 
-	public boolean update(Remind remUpd) { //リマインドの削除処理
+	public boolean delete(Remind remUpd) { //リマインドの削除処理
 		try(Connection con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			//SQL文

@@ -22,22 +22,50 @@ public class RemUpd extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		//リクエストパラメータの取得
+		String action = request.getParameter("action");
 
-		//セッションスコープから更新リマインド情報を取得
-		Remind remUpd = (Remind) session.getAttribute("remUpd");
+		//確認画面で「戻る」を選択された場合
+		if(action == null) {
+			HttpSession session = request.getSession();
+			Remind remUpd = (Remind)session.getAttribute("remUpd");
 
-		//リマインド書き換え処理
-		RemUpdBO bo = new RemUpdBO();
-		boolean remRes = bo.execute(remUpd);
+			int remindId = remUpd.getRemindId();
+			String userId = remUpd.getUserId();
 
-		//リクエストスコープに実行結果格納
-		request.setAttribute("remRes", remRes);
+			Remind id = new Remind(remindId, userId);
 
-		//remUpdRes.jspへフォワード
-		String path = "/WEB-INF/jsp/remUpdRes.jsp";
-		RequestDispatcher dis = request.getRequestDispatcher(path);
-		dis.forward(request, response);
+			RemSelcBO bo = new RemSelcBO();
+			remUpd = bo.execute(id);
+
+			//セッションスコープに現在のリマインド情報を格納
+			session.setAttribute("remUpd", remUpd);
+
+			//remUpd.jspへフォワード
+			String path = "/WEB-INF/jsp/remUpd.jsp";
+			RequestDispatcher dis = request.getRequestDispatcher(path);
+			dis.forward(request, response);
+		}
+
+		//確認画面で「実行」が押された場合
+		else {
+			HttpSession session = request.getSession();
+
+			//セッションスコープから更新リマインド情報を取得
+			Remind remUpd = (Remind) session.getAttribute("remUpd");
+
+			//リマインド書き換え処理
+			RemUpdBO bo = new RemUpdBO();
+			boolean remRes = bo.execute(remUpd);
+
+			//リクエストスコープに実行結果格納
+			request.setAttribute("remRes", remRes);
+
+			//remUpdRes.jspへフォワード
+			String path = "/WEB-INF/jsp/remUpdRes.jsp";
+			RequestDispatcher dis = request.getRequestDispatcher(path);
+			dis.forward(request, response);
+		}
 
 	}
 
@@ -78,8 +106,8 @@ public class RemUpd extends HttpServlet {
 
 			request.setCharacterEncoding("UTF-8");
 			//リクエストパラメータの取得
-			String specifiedRemind = request.getParameter("specifiedRemind");
-			String specifiedCategory = request.getParameter("specifiedCategory");
+			String specifiedRemind = request.getParameter("remind");
+			String specifiedCategory = request.getParameter("category");
 
 			HttpSession session = request.getSession();
 			Remind remUpd = (Remind)session.getAttribute("remUpd");
@@ -94,28 +122,6 @@ public class RemUpd extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher(path);
 			dis.forward(request, response);
 
-		}
-
-		//リクエストパラメータがreturnの場合(確認画面で「戻る」を選択された場合)
-		else if(action.equals("return")) {
-			HttpSession session = request.getSession();
-			Remind remUpd = (Remind)session.getAttribute("remUpd");
-
-			int remindId = remUpd.getRemindId();
-			String userId = remUpd.getUserId();
-
-			Remind id = new Remind(remindId, userId);
-
-			RemSelcBO bo = new RemSelcBO();
-			remUpd = bo.execute(id);
-
-			//セッションスコープに現在のリマインド情報を格納
-			session.setAttribute("remUpd", remUpd);
-
-			//remUpd.jspへフォワード
-			String path = "/WEB-INF/jsp/remUpd.jsp";
-			RequestDispatcher dis = request.getRequestDispatcher(path);
-			dis.forward(request, response);
 		}
 
 	}

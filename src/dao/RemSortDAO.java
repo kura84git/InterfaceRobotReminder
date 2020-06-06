@@ -59,7 +59,7 @@ public class RemSortDAO {
 	public List<Remind> sort(User loginUser, String specifiedCategory) { //カテゴリでソート処理
 
 		//空のArrayListの用意
-		List<Remind> remindSortList = new ArrayList<>();
+		List<Remind> remSortList = new ArrayList<>();
 
 		try(Connection con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
@@ -86,7 +86,7 @@ public class RemSortDAO {
 				String category = rs.getString("CATEGORY");
 
 				Remind reminder = new Remind(remindId, userId, remind, category);
-				remindSortList.add(reminder);
+				remSortList.add(reminder);
 
 			}
 
@@ -95,7 +95,7 @@ public class RemSortDAO {
 			e.printStackTrace();
 			return null;
 		}
-		return remindSortList;
+		return remSortList;
 	}//sort()
 
 
