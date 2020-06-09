@@ -17,7 +17,7 @@ public class RemUpdDAO {
 		try(Connection con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			//SQL文
-			String sql = "UPDATE REMIND SET REMIND = ?, CATEGORY= ? WHERE REMINDID = ? AND USERID = ? ";
+			String sql = "UPDATE REMIND SET REMIND = ?, CATEGORY= ? WHERE ID = ? AND USERID = ? ";
 
 			//SQL文送信
 			PreparedStatement pStmt = con.prepareStatement(sql);

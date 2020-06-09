@@ -106,8 +106,8 @@ public class RemUpd extends HttpServlet {
 
 			request.setCharacterEncoding("UTF-8");
 			//リクエストパラメータの取得
-			String specifiedRemind = request.getParameter("remind");
-			String specifiedCategory = request.getParameter("category");
+			String specifiedRemind = request.getParameter("specifiedRemind");
+			String specifiedCategory = request.getParameter("specifiedCategory");
 
 			HttpSession session = request.getSession();
 			Remind remUpd = (Remind)session.getAttribute("remUpd");

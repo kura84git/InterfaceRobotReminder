@@ -25,7 +25,7 @@ public class RemindDAO {
 		try(Connection con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			//SQL文
-			String sql = "SELECT REMINDID, USERID, REMIND, CATEGORY FROM REMIND WHERE USERID = ? ORDER BY REMINDID DESC";
+			String sql = "SELECT ID, USERID, REMIND, CATEGORY FROM REMIND WHERE USERID = ? ORDER BY ID DESC";
 
 			//SQL文送信
 			PreparedStatement pStmt = con.prepareStatement(sql);
@@ -40,7 +40,7 @@ public class RemindDAO {
 			while(rs.next()) {
 
 				//取得結果をArrayListに格納
-				int remindId = rs.getInt("REMINDID");
+				int remindId = rs.getInt("ID");
 				String userId = rs.getString("USERID");
 				String remind = rs.getString("REMIND");
 				String category = rs.getString("CATEGORY");

@@ -21,7 +21,7 @@ public class RemSelcDAO {
 		try(Connection con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			//SQL文の送信
-			String sql = "SELECT REMIND, CATEGORY FROM REMIND WHERE REMINDID = ? AND USERID = ?";
+			String sql = "SELECT REMIND, CATEGORY FROM REMIND WHERE ID = ? AND USERID = ?";
 
 			//SQL文送信
 			PreparedStatement pStmt = con.prepareStatement(sql);

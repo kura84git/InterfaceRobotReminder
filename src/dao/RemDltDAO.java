@@ -16,7 +16,7 @@ public class RemDltDAO {
 		try(Connection con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
 
 			//SQL文
-			String sql = "DELETE FROM REMIND WHERE REMINDID = ? AND USERID = ? ";
+			String sql = "DELETE FROM REMIND WHERE ID = ? AND USERID = ? ";
 
 			//SQL文送信
 			PreparedStatement pStmt = con.prepareStatement(sql);
